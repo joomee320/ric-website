@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE
+.idea/
+
+# Google service account keys (never commit; values go in .env.local / Vercel)
+ric-cms-test-*.json
+*service-account*.json
+*service_account*.json
+*credentials*.json
+*-[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].json
+
+# vitest report output
+.vitest/

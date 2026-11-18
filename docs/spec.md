@@ -105,66 +105,9 @@ Code layout:
 
 ## Content model
 
-Five sections, each an ArchieML object; lists use `[name] … []` with a repeating first key. Fields marked "Draft" need confirmation (see Open questions).
+Five sections, each an ArchieML object; lists use `[name] … []` with a repeating first key.
 
-Doc template:
-
-```
-{home_page}
-hero_title: Rooted in Cambodia
-hero_subtitle: An experiential journey of healing, learning, and reconnection
-mission_statement: First paragraph.
-
-Second paragraph.
-:end
-{}
-
-{about_us}
-story_text: Rooted in Cambodia began with two friends...
-:end
-[.team]
-name: Sophy Yem
-role: Co-founder
-bio: ...
-[]
-{}
-
-{program_info}
-eligibility: Cambodian Americans ages 21-26...
-:end
-[.important_dates]
-label: Application deadline
-date: March 1, 2027
-[]
-{}
-
-[faq_list]
-question: Do I need a visa?
-answer: Yes, you will need one.
-question: When is the program?
-answer: Summer 2027.
-[]
-
-[itinerary]
-day: Day 1
-title: Arrival in Phnom Penh
-details: ...
-[]
-```
-
-Fields:
-
-| Path | Type | Required | Status |
-| --- | --- | --- | --- |
-| `home_page.hero_title` | text, one line | Yes | Confirmed |
-| `home_page.hero_subtitle` | text, one line | Yes | Confirmed |
-| `home_page.mission_statement` | rich text, multi-paragraph | Yes | Confirmed |
-| `about_us.story_text` | rich text, multi-paragraph | Yes | Confirmed |
-| `about_us.team[]` | `name`, `role`, `bio` | At least 1 | Draft |
-| `program_info.eligibility` | rich text, multi-paragraph | Yes | Draft |
-| `program_info.important_dates[]` | `label`, `date` (plain text, not parsed) | At least 1 | Draft |
-| `faq_list[]` | `question`, `answer` (rich text) | At least 1; both keys in every item | Confirmed |
-| `itinerary[]` | `day`, `title`, `details` | At least 1 | Draft |
+The field list and the Doc template live in [`docs/content-model.md`](content-model.md), which takes precedence over this spec for fields.
 
 Rules the schema enforces: every required field is non-empty after trimming; unknown keys are errors (catches typos like `hero_titel`); every list item has all its keys.
 
