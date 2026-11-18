@@ -5,7 +5,10 @@
 // re-fetching does not require rewriting these tests.
 
 import { describe, expect, test } from 'vitest';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import realDoc from '../fixtures/real-doc.json';
+import { RichText } from '../../components/RichText';
 import { flatten, type DocsDocument } from '../../lib/cms/flatten';
 import { loadContent } from '../../lib/cms/loadContent';
 
@@ -45,5 +48,17 @@ describe('Real Doc fixture: loadContent()', () => {
     expect(mission.startsWith('**Rooted in Cambodia**')).toBe(true);
     expect(mission).toContain('_first time travelers to Cambodia_');
     expect(mission.split('\n\n')).toHaveLength(2);
+  });
+
+  test('D7: on the page, the Shift+Enter break shows as <br> and formatting as tags', async () => {
+    const result = await loadContent(async () => document);
+    if (!result.ok) throw new Error('expected ok');
+    const html = renderToStaticMarkup(
+      createElement(RichText, { markdown: result.content.home_page.mission_statement }),
+    );
+    expect(html).toContain('<strong>Rooted in Cambodia</strong> is a');
+    expect(html).toContain('<em>first time travelers to Cambodia</em> to engage');
+    expect(html).toContain('in Cambodia.<br/>\nRooted in Cambodia cohorts');
+    expect(html.match(/<p>/g)).toHaveLength(2);
   });
 });

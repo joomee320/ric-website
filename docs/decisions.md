@@ -45,3 +45,11 @@ Decisions made after `docs/spec.md` was written, excluding field changes (those 
 **Why:** `googleapis` bundles every Google API; the Docs-only package has the same client API and keeps the install and the Vercel function small.
 
 **Replaces:** `docs/spec.md` → Tech stack, "Google Docs API v1 via `googleapis`".
+
+## D7. Show Shift+Enter line breaks on the page (2026-11-18)
+
+**Decision:** A single line break inside a rich text field (Shift+Enter in the Doc) is rendered as `<br>`. A blank line (Enter twice) still starts a new paragraph. The rich text renderer allows `br` in addition to `p`, `strong`, `em`, `a`. Implemented in `components/RichText.tsx` without new dependencies.
+
+**Why:** Checked against the real Doc (tests/fixtures/real-doc.json): an editor's Shift+Enter arrives as a newline, but Markdown treats a single newline as a space, so the break the editor typed disappeared on the page.
+
+**Replaces:** `docs/spec.md` → Tech stack, "Rich text rendering … only `p`, `strong`, `em`, `a` allowed" (now also `br`).

@@ -50,7 +50,7 @@ Done means all of these work on a Vercel preview deployment, using the content D
 ## Tech constraints
 - Next.js 16 (App Router), TypeScript, Vercel. CMS routes run on the default Node.js runtime. Do NOT add `export const runtime = ...` (not even 'nodejs'): `cacheComponents: true` is on, and Cache Components does not support the `runtime` segment config.
 - Check current docs for library APIs before using them (especially revalidateTag in Next.js 16, @vercel/blob, archieml). Do not rely on memory.
-- Rich text: react-markdown, only p, strong, em, a. Links only http, https, mailto.
+- Rich text: react-markdown, only p, br, strong, em, a (br: docs/decisions.md D7). Links only http, https, mailto.
 - No styling or UI libraries yet. Ask before adding any dependency not named in docs/spec.md.
 
 ## Commands

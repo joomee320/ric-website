@@ -21,6 +21,18 @@ describe('Tech stack: rich text renders only p, strong, em, a', () => {
     expect(html('First.\n\nSecond.')).toBe('<p>First.</p>\n<p>Second.</p>');
   });
 
+  test('D7: a single line break (Shift+Enter in the Doc) renders as <br>', () => {
+    expect(html('Line one.\nLine two.')).toBe('<p>Line one.<br/>\nLine two.</p>');
+  });
+
+  test('D7: line breaks inside bold (flatten wraps each line) render as <br>', () => {
+    expect(html('**a**\n**b**')).toBe('<p><strong>a</strong><br/>\n<strong>b</strong></p>');
+  });
+
+  test('D7: a line break next to a paragraph break does not add an extra <br>', () => {
+    expect(html('First.\n\nSecond.\nThird.')).toBe('<p>First.</p>\n<p>Second.<br/>\nThird.</p>');
+  });
+
   test('headings and lists are reduced to plain text', () => {
     const out = html('# Big\n\n* item');
     expect(out).not.toMatch(/<(h\d|ul|ol|li)\b/);
