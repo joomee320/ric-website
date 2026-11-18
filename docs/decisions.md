@@ -53,3 +53,62 @@ Decisions made after `docs/spec.md` was written, excluding field changes (those 
 **Why:** Checked against the real Doc (tests/fixtures/real-doc.json): an editor's Shift+Enter arrives as a newline, but Markdown treats a single newline as a space, so the break the editor typed disappeared on the page.
 
 **Replaces:** `docs/spec.md` → Tech stack, "Rich text rendering … only `p`, `strong`, `em`, `a` allowed" (now also `br`).
+
+## D8. Vercel: `production` branch for Production, everything else is Preview (2026-11-18)
+
+**Decision:**
+- The Vercel project tracks the `production` branch for Production. Pushes to `main` (and any other branch) create Preview deployments only.
+- Launch, later, means updating `production` from `main`; no Vercel setting changes.
+- Google env vars (`GOOGLE_CLIENT_EMAIL`, `GOOGLE_PRIVATE_KEY`, `DOC_ID`) are set for **Preview only** (all non-production branches), not Production or Development. Local development uses `.env.local`.
+- Deployment Protection stays at the default (Vercel Authentication on previews) until the Apps Script step.
+
+**Why:** Day-to-day work is pushed to `main`, and production must not be touched before launch (CLAUDE.md → Environment safety). A real `production` branch was used instead of a non-existent branch name because Vercel only accepts a branch it has already deployed, and it makes launch a plain merge.
+
+**Notes:**
+- Vercel always deploys a new project's first import to Production. That one deployment (`2a60692`, the create-next-app template) is what the production URL shows until launch.
+- Verified after pushing `009ba74` to `main`: the production URL still served the template, so the push went to Preview.
+
+## D9. Site map: one route per menu item; Program Info on the Apply page (2026-11-18)
+
+**Decision:** The site has one App Router route per item in the design's navigation:
+
+| Route | Content | Source |
+| --- | --- | --- |
+| `/` | Home: hero title, mission | Doc `home_page` |
+| `/about` | Story and team | Doc `about_us`; team photos in code |
+| `/itinerary` | Day-by-day itinerary | Doc `itinerary` |
+| `/photo-archive` | Photo gallery | Images in code (`public/`), not in the Doc |
+| `/faq` | Questions and answers | Doc `faq_list` |
+| `/contact` | Contact details | Code (D10) |
+| `/donate` | Givebutter donation widget | Embed, hardcoded |
+| `/apply` | Program Info (eligibility, important dates), then the Google Form | Doc `program_info` + embed |
+
+Program Info has no menu item in the design, so it is shown at the top of `/apply`, where applicants need it. Donate and Apply each get their own page with the embed; if an embed fails to load, the page shows a plain link to the Givebutter / Google Forms page (`docs/spec.md` → Error handling).
+
+**Why:** Matches the Home page design's navigation. Photo archive is not in the spec; it is added as a code-managed gallery so it needs no Doc fields and no new services.
+
+**Scope:** Only `/` is built now. The other routes exist as stubs (D12) until their sections are added to `docs/content-model.md`.
+
+## D10. Contact page is static (2026-11-18)
+
+**Decision:** `/contact` shows an email address (`mailto:` link) and social links, defined in code (`lib/site.ts`). No contact form.
+
+**Why:** A form would need an email-sending service and an API route: a new backend dependency for little gain. The text can move into a Doc section later if editors need to change it.
+
+## D11. Styling: Tailwind CSS v4 with design tokens from Figma (2026-11-18)
+
+**Decision:** The Figma design will be implemented with Tailwind CSS v4, which the project already has (CSS-first config, no `tailwind.config` file). Figma colours, fonts and spacing become `@theme` tokens in `app/globals.css`; components use Tailwind classes. Layout uses Flexbox and containers that grow with the text (`docs/spec.md` → Tech stack).
+
+**Why:** Already installed and configured with Turbopack, so no new dependency. Tokens in one file keep the Figma values in one place.
+
+**Scope:** Styling starts when the Figma work starts. Until then, pages stay unstyled (CLAUDE.md → Current goal).
+
+## D12. Images live in the repo; planned modules exist as documented stubs (2026-11-18)
+
+**Decision:**
+- Images (hero, team photos, photo archive) are files in `public/`, shown with `next/image`. They are not edited from the Doc (`docs/spec.md` → Out of scope).
+- Every planned module that is not built yet exists as a stub: the file, its exported names, a doc comment saying what it will do, and `TODO` notes. Stubs contain no working logic. Stub pages render a short "not built yet" placeholder; the stub Publish route answers `501 Not Implemented`.
+
+**Why:** The course's architecture assignment asks for the planned structure to exist in the repository. Stubs make the architecture visible and reviewable while keeping the build passing.
+
+**Rule:** A stub is not permission to implement it. Implementation follows the step order in `docs/progress.md` and needs the user's OK (CLAUDE.md → Workflow).

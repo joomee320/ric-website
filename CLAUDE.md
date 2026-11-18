@@ -6,6 +6,8 @@
 - docs/spec.md is the source of truth for architecture and behaviour.
 - docs/content-model.md is the source of truth for Doc fields and wins over the spec for fields. The zod schema must match it.
 - docs/decisions.md records later decisions; an entry wins over the part of the spec it says it replaces.
+- docs/architecture.md is the overview (stack, components, diagram, key decisions). It summarises the documents above; if it disagrees with them, they win and architecture.md is corrected.
+- docs/progress.md shows which step is done and what is next. Read it first when resuming work, and update it when a step finishes.
 - If the code and these documents disagree, they disagree with each other, or none of them answers the question, STOP and ask. Do not guess.
 - Do not edit docs/spec.md unless the user explicitly asks. Record new decisions in docs/decisions.md and field changes in docs/content-model.md, and only after the user agrees to them.
 
@@ -14,7 +16,9 @@ Build the full Google Doc → Publish → Vercel pipeline end to end, using ONLY
 
 Everything in the pipeline is in scope: fetchDoc, flatten, archieml, zod, Vercel Blob snapshot, cached getContent with the cms tag, content.fallback.json, POST /api/publish with the secret, and the Apps Script "Website → Publish to website" menu with error popups.
 
-OUT of scope for now: about_us, program_info, faq_list, itinerary, Donate, Apply, Contact, Subscribe form, Figma styling. The home page UI is a plain unstyled placeholder. Do not add these until the user asks.
+OUT of scope for now: about_us, program_info, faq_list, itinerary, Donate, Apply, Contact, Photo archive, header/footer, Subscribe form, Figma styling. The home page UI is a plain unstyled placeholder. Do not add these until the user asks.
+
+Stubs (docs/decisions.md D12): planned modules already exist as files with doc comments and `TODO(...)` notes but no working logic (other routes in app/, their components, SiteHeader, SiteFooter, EmbedFrame, lib/cms/snapshot.ts, app/api/publish/route.ts, apps-script/Code.gs). A stub is not permission to implement it; follow docs/progress.md and ask first. Keep a stub's doc comment accurate when plans change.
 
 Done means all of these work on a Vercel preview deployment, using the content Doc (docs/decisions.md D2):
 1. Edit the Doc, click Publish → popup says published → preview page shows the new text.
@@ -36,7 +40,8 @@ Done means all of these work on a Vercel preview deployment, using the content D
 ## Architecture boundary
 - lib/cms/ = content pipeline.
 - components/ = UI (will later be implemented from Figma). Presentational only; data arrives through props.
-- app/ pages = thin connectors: call getContent(), pass data as props. No layout or styling logic in page files.
+- lib/site.ts = settings kept in code (navigation, contact details, embed URLs); no secrets.
+- app/ pages = thin connectors: call getContent() and/or read lib/site.ts, pass data as props. No layout or styling logic in page files.
 - components/ must NOT import from lib/cms/, except TypeScript types from lib/cms/schema.ts.
 - The SiteContent type (z.infer of the zod schema) is the contract between pipeline and UI. Do not change the schema without asking the user.
 - UI work must never require Google or Vercel credentials; it uses content.fallback.json.
