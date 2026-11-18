@@ -55,7 +55,8 @@ Done means all of these work on a Vercel preview deployment, using the content D
 
 ## Commands
 - `npm run dev` / `npm run build` / `npm run lint`
-- `npm test`: Vitest, single run (`vitest.config.mts`, node environment, `tests/**/*.test.{js,ts}`)
+- `npm test`: Vitest, single run (`vitest.config.mts`, node environment, `tests/**/*.test.{js,ts,tsx}`; components are tested with `react-dom/server`)
+- `npm run lint` also enforces the components/ → lib/cms/ import boundary (see `eslint.config.mjs`)
 - One file: `npx vitest run tests/cms/flatten.test.js`; one test: add `-t "<name>"`
 - Baseline: the spike tests ported in `tests/cms/` are 32 tests: 30 pass, 2 todo (flatten 20, archieml 12). `archieml.test.js` contains learning tests that pin the archieml 0.5 behaviour the content format relies on.
 
