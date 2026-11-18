@@ -1,7 +1,7 @@
-// Docs API document JSON → 마크다운 섞인 평문 (ArchieML 입력용).
-// 순수 함수: API 호출/파일 접근 없음.
+// Docs API document JSON → plain text with Markdown formatting (input for ArchieML).
+// Pure function: no API calls, no file access.
 
-// flatten() 이 읽는 Docs API 필드만 최소한으로 정의한다 (docs_v1.Schema$Document 의 부분집합).
+// Minimal types for only the Docs API fields flatten() reads (a subset of docs_v1.Schema$Document).
 interface DocsTextStyle {
   bold?: boolean | null;
   italic?: boolean | null;
@@ -24,7 +24,7 @@ export interface DocsDocument {
 
 export interface FlattenResult {
   text: string;
-  /** 처리하지 않은 요소의 종류별 개수 (sectionBreak, table, inlineObjectElement 등) */
+  /** Count of unhandled elements by kind (sectionBreak, table, inlineObjectElement, ...) */
   skipped: Record<string, number>;
 }
 
@@ -36,7 +36,7 @@ interface Run {
 }
 
 /**
- * @param document  documents.get 응답의 data
+ * @param document  the `data` of a documents.get response
  */
 export function flatten(document: DocsDocument | null | undefined): FlattenResult {
   const skipped: Record<string, number> = {};
@@ -61,7 +61,7 @@ export function flatten(document: DocsDocument | null | undefined): FlattenResul
   return { text, skipped };
 }
 
-// startIndex/endIndex 를 제외한 첫 키가 요소의 종류 (paragraph, table, inlineObjectElement ...)
+// The first key other than startIndex/endIndex is the element kind (paragraph, table, inlineObjectElement, ...)
 function kindOf(element: object): string {
   return Object.keys(element).find((key) => !key.endsWith('Index')) ?? 'unknown';
 }
@@ -76,7 +76,7 @@ function toRun(textRun: NonNullable<DocsParagraphElement['textRun']>): Run {
   };
 }
 
-// 서식이 완전히 같은 이웃 run 을 합친다. ("Camb" + "odia" 둘 다 bold → "Cambodia" 하나)
+// Merge neighbouring runs with identical formatting. ("Camb" + "odia", both bold → one "Cambodia")
 function mergeRuns(runs: Run[]): Run[] {
   const merged: Run[] = [];
   for (const run of runs) {
@@ -90,13 +90,13 @@ function mergeRuns(runs: Run[]): Run[] {
   return merged;
 }
 
-// 줄바꿈과 앞뒤 공백은 서식 기호 밖에 두고, 줄마다 핵심 텍스트만 감싼다.
+// Keep newlines and leading/trailing whitespace outside the markers; wrap only the core text of each line.
 function renderRun({ text, bold, italic, url }: Run): string {
   if (!bold && !italic && !url) return text;
   return text
     .split('\n')
     .map((line) => {
-      // 이 정규식은 모든 문자열과 매치되므로 결과는 null 이 아니다.
+      // This regex matches every string, so the result is never null.
       const [, lead, core, trail] = line.match(/^(\s*)(.*?)(\s*)$/s)!;
       if (!core) return line;
       let wrapped = core;

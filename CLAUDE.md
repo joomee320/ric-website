@@ -60,6 +60,7 @@ Done means all of these work on a Vercel preview deployment, using the content D
 - Baseline: the spike tests ported in `tests/cms/` are 32 tests: 30 pass, 2 todo (flatten 20, archieml 12). `archieml.test.js` contains learning tests that pin the archieml 0.5 behaviour the content format relies on.
 
 ## Workflow
+- Everything committed to the repo is in English: code, comments, test names, docs, commit messages. Conversation with me is in Korean.
 - One step at a time. Give a short plan before each step and wait for my OK.
 - Run tests before saying a step is done. Report failures honestly; never skip or weaken tests to make them pass.
 - Test names reference a requirement ID or spec section where one applies (e.g. "Publish API: wrong secret returns 401").
