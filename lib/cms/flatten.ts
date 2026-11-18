@@ -1,26 +1,10 @@
 // Docs API document JSON → plain text with Markdown formatting (input for ArchieML).
 // Pure function: no API calls, no file access.
 
-// Minimal types for only the Docs API fields flatten() reads (a subset of docs_v1.Schema$Document).
-interface DocsTextStyle {
-  bold?: boolean | null;
-  italic?: boolean | null;
-  link?: { url?: string | null } | null;
-}
+import type { docs_v1 } from '@googleapis/docs';
 
-interface DocsParagraphElement {
-  textRun?: { content?: string | null; textStyle?: DocsTextStyle | null } | null;
-  [key: string]: unknown;
-}
-
-interface DocsStructuralElement {
-  paragraph?: { elements?: DocsParagraphElement[] | null } | null;
-  [key: string]: unknown;
-}
-
-export interface DocsDocument {
-  body?: { content?: DocsStructuralElement[] | null } | null;
-}
+/** A documents.get response body (official Docs API v1 type). */
+export type DocsDocument = docs_v1.Schema$Document;
 
 export interface FlattenResult {
   text: string;
@@ -66,7 +50,7 @@ function kindOf(element: object): string {
   return Object.keys(element).find((key) => !key.endsWith('Index')) ?? 'unknown';
 }
 
-function toRun(textRun: NonNullable<DocsParagraphElement['textRun']>): Run {
+function toRun(textRun: docs_v1.Schema$TextRun): Run {
   const style = textRun.textStyle ?? {};
   return {
     text: (textRun.content ?? '').replace(/\u000b/g, '\n'),

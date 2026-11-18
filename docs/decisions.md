@@ -37,3 +37,11 @@ Decisions made after `docs/spec.md` was written, excluding field changes (those 
 **Decision:** The "Subscribe to get the latest news" form in the Home design is not built now.
 
 **Why:** Not in the spec, and it needs an email service (a new backend dependency).
+
+## D6. Use `@googleapis/docs` instead of `googleapis` (2026-11-18)
+
+**Decision:** The Docs API client is `@googleapis/docs` (official, Docs API only). Its `auth.JWT` is used for the service account, so `google-auth-library` is not a direct dependency. `flatten()` uses the official `docs_v1.Schema$Document` type from this package.
+
+**Why:** `googleapis` bundles every Google API; the Docs-only package has the same client API and keeps the install and the Vercel function small.
+
+**Replaces:** `docs/spec.md` → Tech stack, "Google Docs API v1 via `googleapis`".
