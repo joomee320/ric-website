@@ -54,14 +54,50 @@
       },
       {
         "startIndex": 44,
-        "endIndex": 80,
+        "endIndex": 556,
         "paragraph": {
           "elements": [
             {
               "startIndex": 44,
-              "endIndex": 80,
+              "endIndex": 63,
               "textRun": {
-                "content": "mission_statement: First paragraph.\n",
+                "content": "mission_statement: ",
+                "textStyle": {}
+              }
+            },
+            {
+              "startIndex": 63,
+              "endIndex": 81,
+              "textRun": {
+                "content": "Rooted in Cambodia",
+                "textStyle": {
+                  "bold": true
+                }
+              }
+            },
+            {
+              "startIndex": 81,
+              "endIndex": 319,
+              "textRun": {
+                "content": " is a transformative program for Cambodian Americans, ages 21 - 26, offering a unique opportunity to connect with Cambodia, the culture and language, and their own family and family history. This immersive and experiential program allows ",
+                "textStyle": {}
+              }
+            },
+            {
+              "startIndex": 319,
+              "endIndex": 352,
+              "textRun": {
+                "content": "first time travelers to Cambodia ",
+                "textStyle": {
+                  "italic": true
+                }
+              }
+            },
+            {
+              "startIndex": 352,
+              "endIndex": 556,
+              "textRun": {
+                "content": "to engage within a safe and supportive cohort environment led by Cambodian Americans who have lived and worked in Cambodia.\u000bRooted in Cambodia cohorts are intentionally small with up to six participants.\n",
                 "textStyle": {}
               }
             }
@@ -73,13 +109,13 @@
         }
       },
       {
-        "startIndex": 80,
-        "endIndex": 81,
+        "startIndex": 556,
+        "endIndex": 557,
         "paragraph": {
           "elements": [
             {
-              "startIndex": 80,
-              "endIndex": 81,
+              "startIndex": 556,
+              "endIndex": 557,
               "textRun": {
                 "content": "\n",
                 "textStyle": {}
@@ -93,13 +129,13 @@
         }
       },
       {
-        "startIndex": 81,
-        "endIndex": 99,
+        "startIndex": 557,
+        "endIndex": 575,
         "paragraph": {
           "elements": [
             {
-              "startIndex": 81,
-              "endIndex": 99,
+              "startIndex": 557,
+              "endIndex": 575,
               "textRun": {
                 "content": "Second paragraph.\n",
                 "textStyle": {}
@@ -113,13 +149,13 @@
         }
       },
       {
-        "startIndex": 99,
-        "endIndex": 104,
+        "startIndex": 575,
+        "endIndex": 580,
         "paragraph": {
           "elements": [
             {
-              "startIndex": 99,
-              "endIndex": 104,
+              "startIndex": 575,
+              "endIndex": 580,
               "textRun": {
                 "content": ":end\n",
                 "textStyle": {}
@@ -133,13 +169,13 @@
         }
       },
       {
-        "startIndex": 104,
-        "endIndex": 107,
+        "startIndex": 580,
+        "endIndex": 583,
         "paragraph": {
           "elements": [
             {
-              "startIndex": 104,
-              "endIndex": 107,
+              "startIndex": 580,
+              "endIndex": 583,
               "textRun": {
                 "content": "{}\n",
                 "textStyle": {}
@@ -153,13 +189,13 @@
         }
       },
       {
-        "startIndex": 107,
-        "endIndex": 108,
+        "startIndex": 583,
+        "endIndex": 584,
         "paragraph": {
           "elements": [
             {
-              "startIndex": 107,
-              "endIndex": 108,
+              "startIndex": 583,
+              "endIndex": 584,
               "textRun": {
                 "content": "\n",
                 "textStyle": {}
