@@ -18,7 +18,7 @@ Everything in the pipeline is in scope: fetchDoc, flatten, archieml, zod, Vercel
 
 OUT of scope for now: about_us, program_info, faq_list, itinerary, Donate, Apply, Contact, Photo archive, header/footer, Subscribe form, Figma styling. The home page UI is a plain unstyled placeholder. Do not add these until the user asks.
 
-Stubs (docs/decisions.md D12): planned modules already exist as files with doc comments and `TODO(...)` notes but no working logic (other routes in app/, their components, SiteHeader, SiteFooter, EmbedFrame, lib/cms/snapshot.ts, app/api/publish/route.ts, apps-script/Code.gs). A stub is not permission to implement it; follow docs/progress.md and ask first. Keep a stub's doc comment accurate when plans change.
+Stubs (docs/decisions.md D12): planned modules already exist as files with doc comments and `TODO(...)` notes but no working logic (other routes in app/ and their components/pages/*, components/layout/*, home/CtaRow, ui/ButtonLink, ui/EmbedFrame, lib/cms/snapshot.ts, app/api/publish/route.ts, apps-script/Code.gs). A stub is not permission to implement it; follow docs/progress.md and ask first. Keep a stub's doc comment accurate when plans change.
 
 Done means all of these work on a Vercel preview deployment, using the content Doc (docs/decisions.md D2):
 1. Edit the Doc, click Publish → popup says published → preview page shows the new text.
@@ -39,7 +39,8 @@ Done means all of these work on a Vercel preview deployment, using the content D
 
 ## Architecture boundary
 - lib/cms/ = content pipeline.
-- components/ = UI (will later be implemented from Figma). Presentational only; data arrives through props.
+- components/ = UI (will later be implemented from Figma). Presentational only; data arrives through props. Folders by role (docs/decisions.md D14): layout/ (header, nav, footer), pages/ (one per route, composes sections), home/ and later one folder per page (one component per Figma section), ui/ (reusable pieces such as RichText, ButtonLink, EmbedFrame).
+- Server Components by default. Use 'use client' only where docs/decisions.md D13 allows it (EmbedFrame, NavLinks); ask before adding another client component.
 - lib/site.ts = settings kept in code (navigation, contact details, embed URLs); no secrets.
 - app/ pages = thin connectors: call getContent() and/or read lib/site.ts, pass data as props. No layout or styling logic in page files.
 - components/ must NOT import from lib/cms/, except TypeScript types from lib/cms/schema.ts.

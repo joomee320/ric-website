@@ -11,7 +11,7 @@
  * TODO(embeds):
  *   - Check Givebutter's current embed docs: iframe vs widget script, and the
  *     Content-Security-Policy it needs.
- *   - This becomes a client component ('use client') for the load timeout.
+ *   - This becomes a client component ('use client') for the load timeout (D13).
  *   - Until then it renders only the fallback link.
  */
 

@@ -12,7 +12,7 @@
  *   - story_text via RichText; one card per team member.
  */
 
-import { StubNotice } from './StubNotice';
+import { StubNotice } from '@/components/ui/StubNotice';
 
 export function AboutPage() {
   return <StubNotice title="About" />;

@@ -8,7 +8,7 @@
  *   - Email as a mailto: link; social links with accessible labels.
  */
 
-import { StubNotice } from './StubNotice';
+import { StubNotice } from '@/components/ui/StubNotice';
 
 export function ContactPage() {
   return <StubNotice title="Contact" />;

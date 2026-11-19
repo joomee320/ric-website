@@ -8,7 +8,7 @@
  *   - Render EmbedFrame with a short intro; fallback link if the widget fails.
  */
 
-import { StubNotice } from './StubNotice';
+import { StubNotice } from '@/components/ui/StubNotice';
 
 export function DonatePage() {
   return <StubNotice title="Donate" />;

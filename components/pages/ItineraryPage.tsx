@@ -10,7 +10,7 @@
  *   - details via RichText.
  */
 
-import { StubNotice } from './StubNotice';
+import { StubNotice } from '@/components/ui/StubNotice';
 
 export function ItineraryPage() {
   return <StubNotice title="Itinerary" />;

@@ -112,3 +112,27 @@ Program Info has no menu item in the design, so it is shown at the top of `/appl
 **Why:** The course's architecture assignment asks for the planned structure to exist in the repository. Stubs make the architecture visible and reviewable while keeping the build passing.
 
 **Rule:** A stub is not permission to implement it. Implementation follows the step order in `docs/progress.md` and needs the user's OK (CLAUDE.md → Workflow).
+
+## D13. Rendering: server-rendered pages, client code only where needed (2026-11-19)
+
+**Decision:** Pages are React Server Components, pre-rendered and cached (Cache Components). The site is a set of separate pages linked with Next.js `<Link>`, not a single-page app with its own client-side state. Only two pieces run code in the browser (`'use client'`):
+
+- `EmbedFrame`: the load timeout that swaps a failed Givebutter / Google Forms embed for a plain link.
+- `NavLinks`: the current-page highlight and the mobile menu toggle.
+
+**Why:** The site is mostly reading. Pre-rendered HTML loads fast on phones and works without JavaScript for the main content. Little client state means little that can break. `<Link>` still gives fast page changes through prefetching.
+
+## D14. Component structure: folders by role, one component per Figma section (2026-11-19)
+
+**Decision:** `components/` is split by role:
+
+| Folder | Holds | Examples |
+| --- | --- | --- |
+| `layout/` | Parts shared by every page, rendered by `app/layout.tsx` | `SiteHeader`, `NavLinks`, `SiteFooter`, `SocialLinks` |
+| `pages/` | One component per route; composes sections | `HomePage`, `ApplyPage` |
+| `home/` (later `about/`, `faq/`, …) | Sections of one page, one per Figma section | `Hero`, `MissionSection`, `CtaRow` |
+| `ui/` | Small reusable pieces | `RichText`, `ButtonLink`, `EmbedFrame`, `StubNotice` |
+
+Only the Home page is split into sections now, because it is the only page with a Figma frame. Other pages get their section components when their designs exist; until then they are listed as "planned" in `docs/architecture.md`.
+
+**Why:** A Figma frame maps to one file, so design and code can be compared side by side. Shared pieces live in one place. The import boundary (CLAUDE.md, lint rule) applies to all of `components/`.

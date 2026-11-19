@@ -1,6 +1,6 @@
 # RiC Website — Progress
 
-Where the CMS skeleton stands, so work can resume without re-reading the history. Last updated 2026-11-18.
+Where the CMS skeleton stands, so work can resume without re-reading the history. Last updated 2026-11-19.
 
 Goal and "Done" criteria: `CLAUDE.md` → Current goal. Architecture: `docs/spec.md`. Fields: `docs/content-model.md`. Decisions after the spec: `docs/decisions.md`.
 
@@ -19,7 +19,8 @@ The order changed on 2026-11-18: Google access was moved before the snapshot/cac
 | C | Real Doc fetched once into `tests/fixtures/real-doc.json` | Done | `bddc42f`, `d972a0c` |
 | D | Pipeline checked against the real fixture; Shift+Enter fix (D7) | Done | `d972a0c`, `009ba74` |
 | — | Vercel project, `production` branch, Preview env vars (D8) | Done (by people) | — |
-| — | Architecture overview (`docs/architecture.md`), site map and remaining decisions (D9–D12), documented stubs for every planned module | Done | this commit |
+| — | Architecture overview (`docs/architecture.md`), site map and remaining decisions (D9–D12), documented stubs for every planned module | Done | `98834e8` |
+| — | Architecture reorganised around MVC and the two interfaces; rendering model (D13); components in role folders, Home split into sections (D14) | Done | this commit |
 | 4 | Snapshot in Vercel Blob (per environment, D3) + cached `getContent()` with the `cms` tag | **Next**: propose the storage approach first, after checking `@vercel/blob` and Next.js 16 cache docs | — |
 | 5 | `POST /api/publish` (secret, 200/401/422/502/500, `revalidateTag('cms', { expire: 0 })`) | Not started | — |
 | 6 | Apps Script menu and popups (`apps-script/Code.gs`, D4); Deployment Protection bypass | Not started | — |
@@ -50,13 +51,13 @@ The spec's code layout table (`docs/spec.md` → Architecture and data flow) plu
 | `lib/cms/loadContent.ts` | Publish pipeline; `fetchDoc` is passed in |
 | `lib/cms/google.ts` | `fetchDoc()`, `server-only` |
 | `lib/cms/getContent.ts` | Page read; returns the fallback until step 4 |
-| `components/RichText.tsx`, `components/HomePage.tsx` | Unstyled UI; data via props only |
+| `components/pages/HomePage.tsx`, `components/home/Hero.tsx`, `components/home/MissionSection.tsx`, `components/ui/RichText.tsx` | Built, unstyled UI; data via props only. Folders by role (D14) |
 | `content.fallback.json` | Placeholder text for now (see Follow-ups) |
 | `types/archieml.d.ts` | Types for archieml (it ships none) |
 | `scripts/fetch-doc-fixture.mjs` | Re-fetch the real Doc into the fixture (not in the spec table) |
 | `eslint.config.mjs` | Lint rule: `components/` may only `import type` from `lib/cms/schema` |
 | `lib/site.ts` | Navigation, contact details and embed URLs kept in code (D9, D10) |
-| Stubs (D12) | `lib/cms/snapshot.ts`, `app/api/publish/route.ts` (501), `apps-script/Code.gs`, routes `/about` `/itinerary` `/photo-archive` `/faq` `/contact` `/donate` `/apply` with their components, `SiteHeader`, `SiteFooter`, `EmbedFrame`, `StubNotice` |
+| Stubs (D12) | `lib/cms/snapshot.ts`, `app/api/publish/route.ts` (501), `apps-script/Code.gs`, routes `/about` `/itinerary` `/photo-archive` `/faq` `/contact` `/donate` `/apply` with their `components/pages/*`; `components/layout/*` (`SiteHeader`, `NavLinks`, `SiteFooter`, `SocialLinks`); `home/CtaRow`; `ui/ButtonLink`, `ui/EmbedFrame`, `ui/StubNotice` |
 
 Full overview with a component diagram: `docs/architecture.md`.
 

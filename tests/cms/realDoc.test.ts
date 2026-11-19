@@ -8,7 +8,7 @@ import { describe, expect, test } from 'vitest';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import realDoc from '../fixtures/real-doc.json';
-import { RichText } from '../../components/RichText';
+import { RichText } from '../../components/ui/RichText';
 import { flatten, type DocsDocument } from '../../lib/cms/flatten';
 import { loadContent } from '../../lib/cms/loadContent';
 

@@ -9,7 +9,7 @@
  *   - answer via RichText; consider <details>/<summary> for each question.
  */
 
-import { StubNotice } from './StubNotice';
+import { StubNotice } from '@/components/ui/StubNotice';
 
 export function FaqPage() {
   return <StubNotice title="FAQ" />;

@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { HomePage } from '../../components/HomePage';
+import { HomePage } from '../../components/pages/HomePage';
 
 test('Content model: HomePage shows hero_title and the mission statement under "Mission"', () => {
   const out = renderToStaticMarkup(

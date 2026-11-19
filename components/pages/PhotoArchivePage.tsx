@@ -9,7 +9,7 @@
  *   - Grid of next/image thumbnails with alt text; lazy loading.
  */
 
-import { StubNotice } from './StubNotice';
+import { StubNotice } from '@/components/ui/StubNotice';
 
 export function PhotoArchivePage() {
   return <StubNotice title="Photo archive" />;

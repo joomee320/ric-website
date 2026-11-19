@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { RichText } from '../../components/RichText';
+import { RichText } from '../../components/ui/RichText';
 
 const html = (markdown: string) => renderToStaticMarkup(<RichText markdown={markdown} />);
 

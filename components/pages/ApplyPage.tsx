@@ -12,7 +12,7 @@
  *   - eligibility via RichText; important dates as a list; then EmbedFrame.
  */
 
-import { StubNotice } from './StubNotice';
+import { StubNotice } from '@/components/ui/StubNotice';
 
 export function ApplyPage() {
   return <StubNotice title="Apply" />;
