@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rooted in Cambodia — Website
 
-## Getting Started
+The website for Rooted in Cambodia (RiC), an experiential program for Cambodian Americans ages 21–26. Visitors learn about the program, apply and donate. RiC's program directors edit the site's text in a Google Doc and publish it with one click; no technical help needed.
 
-First, run the development server:
+## Team
+
+| Name | Role |
+| --- | --- |
+| Joomee Choi | Software co-lead: CMS, tech stack, development guidelines |
+| Josh Len | Software co-lead: implementation, repository workflow, code review |
+| Jeffrey Pan | Prototyping and concept direction |
+| Sandra Tang | Team manager and client communication |
+| Skyden Tang | Software co-lead: project code, repository, prototype checks |
+
+## Getting started
+
+Requires [Node.js](https://nodejs.org) 22.12 or newer.
 
 ```bash
+git clone https://github.com/joomee320/ric-website.git
+cd ric-website
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000. No accounts or keys are needed: the site runs on the bundled sample content (`content.fallback.json`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm test` | Run the automated tests (Vitest, in `tests/`) |
+| `npm run build` | Production build, including type checking |
+| `npm run lint` | Lint, including the UI/content boundary rule |
 
-## Learn More
+## Documentation
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [`docs/architecture.md`](docs/architecture.md): architecture overview (start here)
+- [`docs/spec.md`](docs/spec.md): technical spec
+- [`docs/content-model.md`](docs/content-model.md): fields edited in the Google Doc
+- [`docs/decisions.md`](docs/decisions.md): design decisions made after the spec
+- [`docs/progress.md`](docs/progress.md): current status and next steps, including how the Google Doc connection is set up
